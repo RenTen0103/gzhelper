@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.by_syk.graphiccr.core.GraphicCTranslator;
 import com.facebook.react.bridge.Callback;
 
 import com.facebook.react.bridge.Promise;

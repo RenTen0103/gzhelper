@@ -13,7 +13,8 @@ const App = () => {
   return (
     <>
       <Index />
-      <NavigationComponent  />
+
+        <NavigationComponent />
     </>
   );
 };

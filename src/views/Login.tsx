@@ -18,14 +18,14 @@ type propType = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
 export function LoginView({navigation}: propType) {
-  const [username, usernameChange] = useState('2100170007');
-  const [passwd, passwdchange] = useState('wang.147');
+  const [username, usernameChange] = useState('');
+  const [passwd, passwdchange] = useState('');
 
   const submit = async () => {
-    setPasswd(passwd);
-    setUsername(username);
     let c = await loginCore(username, passwd);
     if (c === 0) {
+      setPasswd(passwd);
+      setUsername(username);
       ToastAndroid.show('登录中...', ToastAndroid.SHORT);
       setTimeout(async () => {
         await init();
@@ -56,23 +56,12 @@ export function LoginView({navigation}: propType) {
             secureTextEntry={true}
           />
         </View>
-        {/* <View style={styles.barSize}>
-          <Text style={[styles.inputTag]}>验证码</Text>
-          <TextInput
-            onChangeText={text => checkcodechange(text)}
-            value={checkCode}
-            style={[styles.input]}
-          />
-        </View> */}
         <View style={[styles.barSize]}>
           <View style={[styles.submitBotton]}>
             <View style={[styles.inner]}>
               <Button title="提交" onPress={submit} />
             </View>
           </View>
-          {/* <TouchableWithoutFeedback onPress={getCheckCode}>
-            <Image source={{uri: img}} style={[styles.imgs]} />
-          </TouchableWithoutFeedback> */}
         </View>
       </View>
     </View>

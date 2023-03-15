@@ -6,12 +6,12 @@ import {loginCore} from '../core/login';
 import {EventQ} from '../utils/eventQ';
 import {getUsername, getpasswd} from '../utils/localData';
 import {init} from '../core/init';
-import {setLoginState} from '../utils/states';
 
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   Score: undefined;
+  main: undefined;
 };
 
 type propType = {
@@ -19,7 +19,6 @@ type propType = {
 };
 export function Cover({navigation}: propType) {
   EventQ.privide('ready', () => {
-    setLoginState(true);
     const login = async (username: string, passwd: string) => {
       const code = await loginCore(username, passwd);
       if (code === -1) {
@@ -39,13 +38,12 @@ export function Cover({navigation}: propType) {
   });
 
   EventQ.privide('loaderr', () => {
-    setLoginState(false);
     ToastAndroid.show('未连接到校园网！', ToastAndroid.SHORT);
   });
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Score');
+      navigation.navigate('main');
     }, 200);
   }, [navigation]);
 

@@ -21,7 +21,22 @@ export const getScoreData = () => {
     return MKKV.getArray<score>('score');
 };
 
+export const setScoreDataDiff = (scoreList: Array<score>) => {
+    MKKV.setArray('scoreDiff', scoreList);
+};
+export const getScoreDataDiff = () => {
+    return MKKV.getArray<score>('scoreDiff');
+};
+
 export const setScoreData = (scoreList: Array<score>) => {
     MKKV.setArray('score', scoreList);
 };
 
+export const setSchedule = (ScheduleList: Array<any>) => {
+    MKKV.setArray('schedule', ScheduleList);
+};
+
+
+export const getSchedule = () => {
+    return MKKV.getArray('schedule');
+};
