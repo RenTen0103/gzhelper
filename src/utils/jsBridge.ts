@@ -3,4 +3,5 @@ export class jsBridge {
     static Login: (account: any, passwd: any, checkCode: any) => Promise<string>;
     static quryScore: () => Promise<unknown>;
     static getSchedule: () => Promise<unknown>;
+    static resite: () => Promise<unknown>;
 }

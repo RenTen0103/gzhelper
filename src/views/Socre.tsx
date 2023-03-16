@@ -39,7 +39,7 @@ export const Score = ({setHead}: propType) => {
                   h="20"
                   bg={
                     scoreU.find(e => item.item.lesson === e.lesson)
-                      ? 'indigo.900'
+                      ? 'white'
                       : 'indigo.300'
                   }
                   rounded="md"

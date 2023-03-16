@@ -6,6 +6,7 @@ import {loginCore} from '../core/login';
 import {EventQ} from '../utils/eventQ';
 import {getUsername, getpasswd} from '../utils/localData';
 import {init} from '../core/init';
+import {CommonActions} from '@react-navigation/native';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -17,6 +18,7 @@ export type RootStackParamList = {
 type propType = {
   navigation: StackNavigationProp<RootStackParamList>;
 };
+
 export function Cover({navigation}: propType) {
   EventQ.privide('ready', () => {
     const login = async (username: string, passwd: string) => {
@@ -31,7 +33,12 @@ export function Cover({navigation}: propType) {
     let uname = getUsername();
     let p = getpasswd();
     if (!uname && !p) {
-      navigation.navigate('Login');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'Login'}],
+        }),
+      );
     } else {
       login(uname, p);
     }
@@ -43,7 +50,12 @@ export function Cover({navigation}: propType) {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('main');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: 'main'}],
+        }),
+      );
     }, 200);
   }, [navigation]);
 

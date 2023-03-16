@@ -17,9 +17,8 @@ import {schedule} from '../types/schedule';
 import {NativeBaseProvider} from 'native-base';
 const week = ['一', '二', '三', '四', '五', '六', '日'];
 
-let currentWeek = 1;
-function getWeek() {
-  // date = formatTimebytype(date, 'yyyy-MM-dd');//将日期转换成yyyy-mm-dd格式
+export let currentWeek = 1;
+export function getWeek() {
   let date = new Date();
   var date2 = new Date(date.getFullYear(), 0, 1);
   var day1 = date.getDay();
@@ -59,7 +58,8 @@ export const Schedule = () => {
     EventQ.privide('initFinish', () => {
       init();
     });
-    currentWeek = getWeek() - 12;
+
+    currentWeek = getWeek() - 11;
   }, []);
   return (
     <>

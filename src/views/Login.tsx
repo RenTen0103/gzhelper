@@ -13,6 +13,7 @@ import {RootStackParamList} from '../core';
 import {loginCore} from '../core/login';
 import {setPasswd, setUsername} from '../utils/localData';
 import {init} from '../core/init';
+import { CommonActions } from '@react-navigation/native';
 
 type propType = {
   navigation: StackNavigationProp<RootStackParamList>;
@@ -29,7 +30,12 @@ export function LoginView({navigation}: propType) {
       ToastAndroid.show('登录中...', ToastAndroid.SHORT);
       setTimeout(async () => {
         await init();
-        navigation.navigate('Score');
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{name: 'main'}],
+          }),
+        );
       }, 200);
     } else {
       ToastAndroid.show('用户名或密码错误！', ToastAndroid.SHORT);

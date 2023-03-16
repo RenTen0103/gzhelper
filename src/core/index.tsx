@@ -28,6 +28,15 @@ export function Index() {
     });
   };
 
+  const resite = async () => {
+    return new Promise(resolve => {
+      poseMessage({
+        type: 'resite',
+      });
+      EventQ.privide('resite', resolve);
+    });
+  };
+
   const getCheckCode = async () => {
     return new Promise(resolve => {
       poseMessage({
@@ -63,11 +72,13 @@ export function Index() {
   const webviewLoaded = () => {
     setTimeout(() => {
       EventQ.reject('ready');
+      EventQ.reject('resite');
     }, 200);
   };
 
   const err = () => {
     EventQ.reject('loaderr');
+    EventQ.reject('resite');
   };
 
   const messageListener = (e: any) => {
@@ -81,6 +92,7 @@ export function Index() {
   jsBridge.Login = Login;
   jsBridge.quryScore = quryScore;
   jsBridge.getSchedule = getSchedule;
+  jsBridge.resite = resite;
   const s = `    function getBase64Image(img) {
         var canvas = document.createElement("canvas");
         canvas.width = img.width;
@@ -121,7 +133,7 @@ export function Index() {
     }
 
 
-  const ansSchedule = (m) => {
+    const ansSchedule = (m) => {
         let values = []
         for (let index = m.children.length - 7; index < m.children.length; index++) {
             let preBr = false
@@ -155,7 +167,7 @@ export function Index() {
         }
 
         return values
-    } 
+    }
 
     const getSchedule = async () => {
         document.querySelector('#headDiv > ul > li:nth-child(5) > ul > li:nth-child(2) > a').click()
@@ -179,7 +191,9 @@ export function Index() {
     }
 
 
-
+    const resite = ()=>{
+        window.location.href = "https://jw.gzu.edu.cn/default2.aspx"
+    }
 
     const login = (acc, psd, cc) => {
         if (document.readyState != "complete") {
@@ -288,6 +302,9 @@ export function Index() {
             case "getSchedule":
                 getSchedule()
                 break
+            case "resite":
+                resite()
+                break
             default:
                 break;
         }
@@ -326,11 +343,6 @@ export function Index() {
         }}>
         <WebView
           ref={webviewRef}
-          style={
-            {
-              // position: 'absolute',
-            }
-          }
           injectedJavaScriptBeforeContentLoaded={s}
           source={{
             uri: 'https://jw.gzu.edu.cn/default2.aspx',

@@ -110,7 +110,9 @@
     }
 
 
-
+    const resite = ()=>{
+        window.location.href = "https://jw.gzu.edu.cn/default2.aspx"
+    }
 
     const login = (acc, psd, cc) => {
         if (document.readyState != "complete") {
@@ -218,6 +220,9 @@
                 break;
             case "getSchedule":
                 getSchedule()
+                break
+            case "resite":
+                resite()
                 break
             default:
                 break;
