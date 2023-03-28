@@ -38,8 +38,6 @@ export const setSchedule = (ScheduleList: Array<any>) => {
 
 export const setScheduleToday = (ScheduleList: Array<any>) => {
     MKKV.setArray('scheduleToady', ScheduleList);
-
-
 };
 
 export const getScheduleToday = () => {

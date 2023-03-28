@@ -1,21 +1,13 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import NavigationComponent from './src/componet/Nav';
-import {Index} from './src/core';
+import { Text } from "native-base";
+import React from "react";
+import AppContainer from "./src/componets/app-container";
+import MainScreen from "./src/screens/main-screen";
 
 const App = () => {
   return (
-    <>
-      <Index />
-
-        <NavigationComponent />
-    </>
+    <AppContainer>
+      <MainScreen></MainScreen>
+    </AppContainer>
   );
 };
 

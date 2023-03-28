@@ -23,11 +23,8 @@ export const praseScore = (code: Array<string>, org: string) => {
             for (let j = 0; j < 5; j++) {
                 const s1 = org_S[index + 7 + j]?.match(/l<(.*?);>/)![1];
                 if (!s1) {
-
-
                     break;
                 }
-
 
                 if (s1.indexOf('&nbsp') === -1) {
                     u1.score.push(s1);
