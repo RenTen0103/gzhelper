@@ -5,6 +5,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
+
 public class HtmlParse {
     public static String getViewState(String htmlStr) {
         Document doc = Jsoup.parse(htmlStr);
@@ -71,5 +73,23 @@ public class HtmlParse {
         } else {
             return es.get(0).attr("value");
         }
+    }
+
+    public static ArrayList<String> getScoreList(String htmlStr) {
+        ArrayList scoreList = new ArrayList<String>();
+        int i = 2;
+        Document document = Jsoup.parse(htmlStr);
+        while (true) {
+            Elements es = document.select("#Datagrid1 > tbody > tr:nth-child(" + i + ") > td:nth-child(3)");
+            if (es.isEmpty()) {
+                break;
+            } else {
+                scoreList.add(es.get(0).text());
+            }
+            i++;
+        }
+
+
+        return scoreList;
     }
 }

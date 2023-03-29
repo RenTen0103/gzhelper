@@ -1,7 +1,8 @@
 import {extendTheme} from 'native-base';
 
 const config = {
-    initialColorMode: 'light',
+    useSystemColorMode: false,
+    initialColorMode: 'light'
 };
 
 const colors = {

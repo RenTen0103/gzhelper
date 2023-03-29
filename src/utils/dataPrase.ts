@@ -1,8 +1,8 @@
-import { schedule } from '../types/schedule';
-import { score } from '../types/score';
+import {schedule} from '../types/schedule';
+import {score} from '../types/score';
 
 
-export const praseScore = (code: Array<string>, org: string) => {
+export const praseScore = (code: Array<string>, org: string): score[] => {
     const us: score[] = [];
     let org_S = org.split('至今未通过课程')[0].split('t<p<p<l<Text;>');
 

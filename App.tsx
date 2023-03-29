@@ -1,14 +1,15 @@
-import { Text } from "native-base";
-import React from "react";
-import AppContainer from "./src/componets/app-container";
-import MainScreen from "./src/screens/main-screen";
+import React, {useEffect} from 'react'
+import AppContainer from './src/componets/app-container'
+import Navigator from './src/'
+import {loadLocal, storeLocal, userStore} from "./src/stores/user-store";
 
-const App = () => {
-  return (
-    <AppContainer>
-      <MainScreen></MainScreen>
-    </AppContainer>
-  );
-};
-
-export default App;
+export default function App() {
+    useEffect(() => {
+        userStore.dispatch(loadLocal())
+    })
+    return (
+        <AppContainer>
+            <Navigator/>
+        </AppContainer>
+    )
+}

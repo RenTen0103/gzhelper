@@ -3,6 +3,7 @@ package com.gzhelper.corePackage;
 import static com.gzhelper.checkcode.AutoCheckCode.base64ToFile;
 import static com.gzhelper.util.HtmlParse.checkLogin;
 import static com.gzhelper.util.HtmlParse.getScoreAction;
+import static com.gzhelper.util.HtmlParse.getScoreList;
 import static com.gzhelper.util.HtmlParse.getScoreRawData;
 import static com.gzhelper.util.HtmlParse.getScoreUrl;
 import static com.gzhelper.util.HtmlParse.getUserName;
@@ -19,16 +20,21 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.google.gson.Gson;
 import com.gzhelper.checkcode.GraphicC2Translator;
+import com.gzhelper.module.ScoreData;
 import com.gzhelper.module.UserInfo;
 import com.gzhelper.net.Http;
 import com.gzhelper.util.CallBack;
 import com.gzhelper.util.HtmlParse;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 
 import okhttp3.Response;
@@ -118,6 +124,11 @@ public class Core extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
+    public void getCodeList(Promise promise) {
+        promise.resolve(ScoreData.rawData);
+    }
+
+    @ReactMethod
     public void getScoreData(Promise promise) throws UnsupportedEncodingException {
         http.getScorePage(new CallBack() {
             @Override
@@ -131,9 +142,16 @@ public class Core extends ReactContextBaseJavaModule {
                         @Override
                         public void execute(Response response) {
                             try {
-                                promise.resolve(Base64.getEncoder().encodeToString(getScoreRawData(response.body().string()).getBytes(StandardCharsets.UTF_8)));
+
+                                String responseStr = response.body().string();
+                                String bs = new String(Base64.getDecoder().decode(getScoreRawData(responseStr)));
+                                ArrayList<String> scoreList = getScoreList(responseStr);
+                                ScoreData.codeList = scoreList;
+                                ScoreData.rawData = bs;
+                                Gson gson = new Gson();
+                                promise.resolve(gson.toJson(scoreList));
                             } catch (IOException e) {
-                                throw new RuntimeException(e);
+                                promise.resolve(e.getMessage());
                             }
                         }
                     });
