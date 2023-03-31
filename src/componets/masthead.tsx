@@ -3,11 +3,12 @@ import {ImageSourcePropType} from 'react-native'
 import {VStack, Heading, Text} from 'native-base'
 
 interface Props {
-    title: string
+    title: string,
+    onPress?: () => void,
     children: React.ReactNode
 }
 
-const Masthead = ({title, children}: Props) => {
+const Masthead = ({title, onPress, children}: Props) => {
     return (
         <VStack h="120px" pb={5}>
             {children}
@@ -19,7 +20,7 @@ const Masthead = ({title, children}: Props) => {
                     color: "black",
                 }}
                 p={0} size={"xl"} marginLeft={6}>
-                <Text>{title}</Text>
+                <Text onPress={onPress}>{title}</Text>
             </Heading>
         </VStack>
     )

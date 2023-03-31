@@ -4,7 +4,6 @@ import {score} from "../types/score";
 import AnimatedColorBox from "../componets/animated-color-box";
 import NavBar from "../componets/navbar";
 import Masthead from "../componets/masthead";
-import ThemeToggle from "../componets/theme-toggle";
 import {userStore} from "../stores/user-store";
 import ScoreItem from "../componets/score-item";
 
@@ -14,8 +13,19 @@ export default function ScoreScreen() {
 
 
     useEffect(() => {
-        userStore.subscribe(() => {
+        try {
             setScoreList(JSON.parse(userStore.getState().scoreList))
+        } catch (e) {
+            console.log(e)
+        }
+
+        userStore.subscribe(() => {
+            try {
+                setScoreList(JSON.parse(userStore.getState().scoreList))
+            } catch (e) {
+                console.log(e)
+            }
+
         })
     }, [])
 
@@ -26,7 +36,7 @@ export default function ScoreScreen() {
         w="full"
     >
         <Masthead
-            title={"分数:共" + scoreList.length + "科"}
+            title={"分数:共" + (scoreList.length || 0) + "科"}
         >
             <NavBar/>
         </Masthead>
@@ -37,7 +47,6 @@ export default function ScoreScreen() {
         >
         </Center>
         <FlatList
-
             data={scoreList}
             renderItem={item => {
                 return (

@@ -2,7 +2,7 @@ export interface schedule {
     lesson: string,
     startWeek: number,
     teacher: string,
-    loaction: string,
+    location: string,
     single: number,
     endWeek: number,
     timeInfo?: string

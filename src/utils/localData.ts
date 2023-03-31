@@ -33,8 +33,11 @@ export const setScoreData = (scoreList: string) => {
     MKKV.setString('score', scoreList);
 };
 
-export const setSchedule = (ScheduleList: Array<any>) => {
-    MKKV.setArray('schedule', ScheduleList);
+export const setSchedule = (ScheduleList: string) => {
+    if (!ScheduleList) {
+        return
+    }
+    MKKV.setString('schedule', ScheduleList);
 };
 
 export const setScheduleToday = (ScheduleList: Array<any>) => {
@@ -46,14 +49,21 @@ export const getScheduleToday = () => {
 };
 
 
-export const getSchedule = () => {
-    return MKKV.getArray('schedule');
+export const getScheduleFromLocal = () => {
+    return MKKV.getString('schedule');
 };
 
-export const clearData = () => {
-    MKKV.clearStore();
-};
-
+export const loadTime = () => {
+    return MKKV.getInt("time")
+}
+export const saveTime = (time: number) => {
+    if (!time) {
+        return
+    }
+    MKKV.setInt("time", time)
+}
 export const clearAll = () => {
     MKKV.clearStore()
 }
+
+

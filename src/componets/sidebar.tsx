@@ -55,6 +55,10 @@ const Sidebar = (props: DrawerContentComponentProps) => {
         navigation.navigate('Score')
     }, [navigation])
 
+    const handlePressMenuSchedule = useCallback(() => {
+        navigation.navigate("Schedule")
+    }, [navigation])
+
     return (
         <AnimatedColorBox
             safeArea
@@ -95,6 +99,13 @@ const Sidebar = (props: DrawerContentComponentProps) => {
                         icon="info"
                     >
                         分数
+                    </MenuButton>
+                    <MenuButton
+                        active={currentRoute === 'Schedule'}
+                        onPress={handlePressMenuSchedule}
+                        icon="info"
+                    >
+                        课表
                     </MenuButton>
                     <MenuButton
                         active={currentRoute === 'About'}

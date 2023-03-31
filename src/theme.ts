@@ -1,8 +1,11 @@
-import {extendTheme} from 'native-base';
+import {extendTheme, useColorMode} from 'native-base';
+import {Appearance} from 'react-native';
+
+const colorScheme = Appearance.getColorScheme();
 
 const config = {
     useSystemColorMode: false,
-    initialColorMode: 'light'
+    initialColorMode: colorScheme
 };
 
 const colors = {

@@ -50,7 +50,7 @@ export const praseSchedule = (Shedule: any) => {
                     lesson: '',
                     startWeek: 0,
                     teacher: '',
-                    loaction: '',
+                    location: '',
                     single: 0,
                     endWeek: 0,
                 };
@@ -59,7 +59,7 @@ export const praseSchedule = (Shedule: any) => {
                 } else {
                     s.lesson = l[0] || '';
                     s.teacher = l[2] || '';
-                    s.loaction = l[3] || '';
+                    s.location = l[3] || '';
 
                     let t1 = l[1].match(/\{.*\}/);
                     if (t1?.indexOf('单周') !== -1) {

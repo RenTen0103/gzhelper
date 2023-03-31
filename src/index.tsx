@@ -4,6 +4,7 @@ import MainScreen from './screens/main-screen'
 import AboutScreen from './screens/about-screen'
 import Sidebar from './componets/sidebar'
 import ScoreScreen from "./screens/score-screen";
+import ScheduleScreen from "./screens/schedule-screen";
 
 const Drawer = createDrawerNavigator()
 
@@ -21,6 +22,7 @@ const App = () => {
             <Drawer.Screen name="Main" component={MainScreen}/>
             <Drawer.Screen name="About" component={AboutScreen}/>
             <Drawer.Screen name="Score" component={ScoreScreen}/>
+            <Drawer.Screen name="Schedule" component={ScheduleScreen}/>
         </Drawer.Navigator>
     )
 }

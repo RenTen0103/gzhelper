@@ -4,9 +4,10 @@ import Navigator from './src/'
 import {loadLocal, storeLocal, userStore} from "./src/stores/user-store";
 
 export default function App() {
+
     useEffect(() => {
         userStore.dispatch(loadLocal())
-    })
+    }, [])
     return (
         <AppContainer>
             <Navigator/>

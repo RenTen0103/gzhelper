@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react'
-import {Box, useToken} from 'native-base'
+import {Box, useColorMode, useToken} from 'native-base'
 import usePrevious from '../utils/use-previous'
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
     withTiming,
-    interpolateColor
+    interpolateColor, withSpring
 } from 'react-native-reanimated'
 
 const AnimatedBox = Animated.createAnimatedComponent(Box)
+
 
 const AnimatedColorBox = ({bg, ...props}: any) => {
     const hexBg = useToken('colors', bg)
@@ -17,10 +18,10 @@ const AnimatedColorBox = ({bg, ...props}: any) => {
 
     useEffect(() => {
         progress.value = 0
+        progress.value = withTiming(1, {duration: 200})
     }, [hexBg])
 
     const animatedStyles = useAnimatedStyle(() => {
-        progress.value = withTiming(1, {duration: 100})
         return {
             backgroundColor: interpolateColor(
                 progress.value,
@@ -29,6 +30,8 @@ const AnimatedColorBox = ({bg, ...props}: any) => {
             )
         }
     }, [hexBg])
+
+
     return <AnimatedBox {...props} style={[animatedStyles]}/>
 }
 

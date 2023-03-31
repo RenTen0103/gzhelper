@@ -5,7 +5,7 @@ import {login} from "../utils/native";
 import {ToastAndroid} from "react-native";
 import {showLoading, hiddenAll} from "../stores/back-store";
 import {save, setPassword, setUserName, userStore} from "../stores/user-store";
-import {doGetScoreList, doLogin} from "../utils/request";
+import {doGetScheduleList, doGetScoreList, doLogin} from "../utils/request";
 
 export default function Login() {
 
@@ -18,6 +18,7 @@ export default function Login() {
         hiddenAll()
         if (loginState) {
             await doGetScoreList()
+            await doGetScheduleList()
         }
     }
 
