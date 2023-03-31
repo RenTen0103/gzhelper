@@ -14,6 +14,7 @@ import static com.gzhelper.util.HtmlParse.getViewState;
 
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -89,6 +90,7 @@ public class Core extends ReactContextBaseJavaModule {
                                                 String str = response3.body().string();
                                                 if (checkLogin(str)) {
                                                     COUNTS = 0;
+
                                                     UserInfo.name = getUserName(str);
                                                     UserInfo.ScorePageUrl = "https://jw.gzu.edu.cn/" + getScoreUrl(str);
                                                     UserInfo.ScheduleUrl = "https://jw.gzu.edu.cn/" + getScheduleUrl(str);
@@ -140,6 +142,8 @@ public class Core extends ReactContextBaseJavaModule {
                     String str = new String(response.body().bytes(), "gbk");
                     UserInfo.ScoreUrl = "https://jw.gzu.edu.cn/" + getScoreAction(str);
                     UserInfo.__VIEWSTATE2 = getViewSate2(str);
+                    Log.d("TEST", "execute: " + UserInfo.__VIEWSTATE2);
+                    Log.d("TEST", "execute: " + UserInfo.ScoreUrl);
                     http.getScoreData(new CallBack() {
                         @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override

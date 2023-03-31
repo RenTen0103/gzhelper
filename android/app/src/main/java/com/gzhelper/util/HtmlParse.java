@@ -38,8 +38,14 @@ public class HtmlParse {
     public static String getScoreUrl(String htmlStr) {
         Document document = Jsoup.parse(htmlStr);
         Elements es = document.select("#headDiv > ul > li:nth-child(4) > ul > li:nth-child(4) > a");
+        Elements es1 = document.select("#headDiv > ul > li:nth-child(5) > ul > li:nth-child(4) > a");
         if (es.isEmpty()) {
-            return null;
+            es = document.select("#headDiv > ul > li:nth-child(5) > ul > li:nth-child(4) > a");
+            if (es.isEmpty()) {
+                return "";
+            } else {
+                return es.get(0).attr("href");
+            }
         } else {
             return es.get(0).attr("href");
         }
@@ -49,7 +55,12 @@ public class HtmlParse {
         Document document = Jsoup.parse(htmlStr);
         Elements es = document.select("#headDiv > ul > li:nth-child(4) > ul > li:nth-child(2) > a");
         if (es.isEmpty()) {
-            return null;
+            es = document.select("#headDiv > ul > li:nth-child(5) > ul > li:nth-child(2) > a");
+            if (es.isEmpty()) {
+                return "";
+            } else {
+                return es.get(0).attr("href");
+            }
         } else {
             return es.get(0).attr("href");
         }
@@ -60,7 +71,7 @@ public class HtmlParse {
         Document document = Jsoup.parse(htmlStr);
         Elements es = document.select("#Form1");
         if (es.isEmpty()) {
-            return null;
+            return "";
         } else {
             return es.get(0).attr("action");
         }
@@ -70,7 +81,7 @@ public class HtmlParse {
         Document document = Jsoup.parse(htmlStr);
         Elements es = document.select("#Form1 > input[type=hidden]");
         if (es.isEmpty()) {
-            return null;
+            return "";
         } else {
             return es.get(0).attr("value");
         }
@@ -80,7 +91,7 @@ public class HtmlParse {
         Document document = Jsoup.parse(htmlStr);
         Elements es = document.select("#Form1 > input[type=hidden]");
         if (es.isEmpty()) {
-            return null;
+            return "";
         } else {
             return es.get(0).attr("value");
         }
@@ -135,16 +146,21 @@ public class HtmlParse {
     public static ArrayList ansSchedule(String htmlStr) {
         ArrayList result = new ArrayList<>();
         Document document = Jsoup.parse(htmlStr);
-        Element m1 = document.select("#Table1 > tbody > tr:nth-child(3)").get(0);
-        Element m2 = document.select("#Table1 > tbody > tr:nth-child(5)").get(0);
-        Element m3 = document.select("#Table1 > tbody > tr:nth-child(7)").get(0);
-        Element m4 = document.select("#Table1 > tbody > tr:nth-child(9)").get(0);
-        Element m5 = document.select("#Table1 > tbody > tr:nth-child(11)").get(0);
-        result.add(ansLine(m1));
-        result.add(ansLine(m2));
-        result.add(ansLine(m3));
-        result.add(ansLine(m4));
-        result.add(ansLine(m5));
+        try {
+            Element m1 = document.select("#Table1 > tbody > tr:nth-child(3)").get(0);
+            Element m2 = document.select("#Table1 > tbody > tr:nth-child(5)").get(0);
+            Element m3 = document.select("#Table1 > tbody > tr:nth-child(7)").get(0);
+            Element m4 = document.select("#Table1 > tbody > tr:nth-child(9)").get(0);
+            Element m5 = document.select("#Table1 > tbody > tr:nth-child(11)").get(0);
+            result.add(ansLine(m1));
+            result.add(ansLine(m2));
+            result.add(ansLine(m3));
+            result.add(ansLine(m4));
+            result.add(ansLine(m5));
+        } catch (Exception e) {
+
+        }
+
         return result;
     }
 

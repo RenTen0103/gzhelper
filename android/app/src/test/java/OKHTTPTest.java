@@ -29,7 +29,7 @@ public class OKHTTPTest {
             public void execute(Response response) {
 
                 System.out.println(response.request().url());
-                
+
                 latch.countDown();
 
             }
