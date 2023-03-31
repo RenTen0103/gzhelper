@@ -9,7 +9,6 @@ import com.gzhelper.module.UserInfo;
 import com.gzhelper.util.CallBack;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class Http {
         }.start();
     }
 
-    private void getScore(String url, CallBack callBack) {
+    private void getIframe(String url, CallBack callBack) {
         new Thread() {
             @Override
             public void run() {
@@ -171,7 +170,12 @@ public class Http {
 
     public void getScorePage(CallBack callBack) {
         String url = UserInfo.ScorePageUrl;
-        getScore(url, callBack);
+        getIframe(url, callBack);
+    }
+
+    public void getSchedule(CallBack callBack) {
+        String url = UserInfo.ScheduleUrl;
+        getIframe(url, callBack);
     }
 
     public void getScoreData(CallBack callBack) {

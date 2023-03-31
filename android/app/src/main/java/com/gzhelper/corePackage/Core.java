@@ -1,7 +1,9 @@
 package com.gzhelper.corePackage;
 
 import static com.gzhelper.checkcode.AutoCheckCode.base64ToFile;
+import static com.gzhelper.util.HtmlParse.ansSchedule;
 import static com.gzhelper.util.HtmlParse.checkLogin;
+import static com.gzhelper.util.HtmlParse.getScheduleUrl;
 import static com.gzhelper.util.HtmlParse.getScoreAction;
 import static com.gzhelper.util.HtmlParse.getScoreList;
 import static com.gzhelper.util.HtmlParse.getScoreRawData;
@@ -89,6 +91,7 @@ public class Core extends ReactContextBaseJavaModule {
                                                     COUNTS = 0;
                                                     UserInfo.name = getUserName(str);
                                                     UserInfo.ScorePageUrl = "https://jw.gzu.edu.cn/" + getScoreUrl(str);
+                                                    UserInfo.ScheduleUrl = "https://jw.gzu.edu.cn/" + getScheduleUrl(str);
                                                     promise.resolve("LOGIN SUCCESS");
                                                 } else {
                                                     COUNTS++;
@@ -157,6 +160,24 @@ public class Core extends ReactContextBaseJavaModule {
                     });
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+
+    @ReactMethod
+    public void getScheduleData(Promise promise) {
+        http.getSchedule(new CallBack() {
+            @Override
+            public void execute(Response response) {
+                try {
+                    String str = response.body().string();
+                    Gson gson = new Gson();
+                    String res = gson.toJson(ansSchedule(str));
+                    promise.resolve(res);
+                } catch (IOException e) {
+                    promise.resolve("NULL");
                 }
             }
         });

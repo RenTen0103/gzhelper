@@ -9,5 +9,5 @@ public class UserInfo {
     public static String ScorePageUrl = "";
     public static String ScoreUrl = "";
     public static String __VIEWSTATE2 = "";
-
+    public static String ScheduleUrl = "";
 }
