@@ -17,7 +17,7 @@ export default function () {
 
         let startData = timeStore.getState().value;
 
-        return Math.floor((Math.floor((date.valueOf() - startData) / (24 * 60 * 60 * 1000)) + 1) / 7)
+        return Math.floor((Math.floor((date.valueOf() - startData) / (24 * 60 * 60 * 1000))) / 7)
 
     }
 
@@ -27,6 +27,9 @@ export default function () {
             let totalSchedule = JSON.parse(userStore.getState().scheduleList) as schedule[][][];
             let scheduleToady: schedule[] = []
             let week = new Date().getDay();
+            if (week == 0) {
+                week = 7
+            }
             totalSchedule.forEach(e => {
                 let r = e[week - 1].find(e => {
                     let k = true

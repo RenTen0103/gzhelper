@@ -92,13 +92,12 @@ public class GraphicC2Translator {
      * 去噪
      *
      * @param picFile 图形验证码文件
-     * @return
+     * @return img
      * @throws Exception
      */
     private Bitmap denoise(File picFile) throws Exception {
         FileInputStream fis = new FileInputStream(picFile);
         Bitmap img = BitmapFactory.decodeStream(fis).copy(Bitmap.Config.ARGB_8888, true);
-        ;
         int width = img.getWidth();
         int height = img.getHeight();
         final int TARGET = 0xff000099;

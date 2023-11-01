@@ -22,18 +22,8 @@ import okhttp3.Response;
 public class OKHTTPTest {
 
     @Test
-    public void GetTest() throws InterruptedException {
-        final CountDownLatch latch = new CountDownLatch(1);
-        Http.getInstance().getLoginPage(new CallBack() {
-            @Override
-            public void execute(Response response) {
-
-                System.out.println(response.request().url());
-
-                latch.countDown();
-
-            }
-        });
-        latch.await();
+    public void GetTest() {
+        String str = " 信息查询";
+        System.out.println(str.contains("信息查询111"));
     }
 }

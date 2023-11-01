@@ -21,14 +21,33 @@ import ItemButton from "../componets/Item-button";
 import {CatIcon} from "../componets/cat-icon";
 import {AnimatedShrinkBox} from "../componets/animated-shrink-box";
 import {UpdateIcon} from "../componets/update-icon";
-import {getScheduleData} from "../utils/native";
-import {praseSchedule} from "../utils/dataPrase";
 import PlanBlock from "../componets/plan-block";
 
 export default function MainScreen() {
 
     const [item1Active, setItem1Active] = useState(false)
     const [item2Active, setItem2Active] = useState(false)
+
+    useEffect(() => {
+        fetch("http://172.16.4.31/portal.do?wlanuserip=10.13.228.82&wlanacname=Stud_wlan_1&mac=74:15:75:e5:39:bf&vlan=38212549&hostname=renren&rand=1a992500f5657a&url=http%3A%2F%2Fwww.msftconnecttest.com%2Fredirec", {
+            "headers": {
+                "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "accept-language": "zh-CN,zh;q=0.9",
+                "cache-control": "max-age=0",
+                "upgrade-insecure-requests": "1"
+            },
+            "body": null,
+            "method": "GET",
+            "mode": "cors",
+            "credentials": "include"
+        }).then(r => {
+                r.text().then(e => {
+                    console.log(e)
+                })
+            }
+        );
+        console.log(111)
+    }, [])
 
     return (
         <AnimatedColorBox
@@ -53,19 +72,22 @@ export default function MainScreen() {
                             setItem1Active(!item1Active)
                         }}
                                     Icon={<CatIcon/>}>为学校内的小猫捐赠！</ItemButton>
-                        <AnimatedShrinkBox marginTop={5} marginLeft={"10%"} w={"80%"}
-                                           active={item1Active}
-                                           alignItems={"center"}
-                                           minSize={0}
-                                           maxSize={540}>
-                            <Text>截图扫码喂养流浪的精灵</Text>
-                            <Box w={"full"} h={'full'}>
-                                <Image
-                                    source={require('../assets/poster.jpg')}
-                                    height={500}
-                                    alt="Alternate Text"/>
-                            </Box>
-                        </AnimatedShrinkBox>
+                        <Box w={"full"}>
+                            <AnimatedShrinkBox marginTop={5} marginLeft={"10%"} w={"80%"}
+                                               active={item1Active}
+                                               alignItems={"center"}
+                                               minSize={0}
+                                               maxSize={540}>
+                                <Text>截图扫码喂养流浪的精灵</Text>
+                                <Box w={"full"} h={'full'}>
+                                    <Image
+                                        source={require('../assets/poster.jpg')}
+                                        height={500}
+                                        alt="Alternate Text"/>
+                                </Box>
+                            </AnimatedShrinkBox>
+                        </Box>
+
                     </Box>
 
                     <Box w={"full"} alignItems={"center"} bg={useColorModeValue('warmGray.50', 'primary.900')}>

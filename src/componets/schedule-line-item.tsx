@@ -42,7 +42,8 @@ export default function ({scheduleList, currentWeek}: Props) {
             return (
                 <Box key={index} borderRadius={10} borderColor={useColorModeValue("black", "gray.200")}
                      backgroundColor={useColorModeValue("blue.200", "blue.500")}
-                     borderWidth={2} paddingLeft={1} h={"full"}
+                     borderWidth={2}
+                     paddingLeft={1} h={"full"}
                      minH={"120"}
                      flex={1}>
                     <CurrentBlock currentWeek={currentWeek} scheduleList={value}/>

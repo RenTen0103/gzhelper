@@ -4,19 +4,19 @@ import {loadTime, saveTime} from "../utils/localData";
 const timeSlice = createSlice({
     name: 'timeState',
     initialState: {
-        value: new Date("2023-03-06").valueOf()
+        value: new Date("2023-03-06").valueOf() - 28800000
     },
     reducers: {
         loadTime: (state) => {
-            state.value = loadTime();
+            state.value = (loadTime() || state.value);
         },
 
         currentWeekReduce: (state) => {
-            state.value = new Date().valueOf() - 7 * 24 * 60 * 60 * 1000
+            state.value = state.value + 604800000
             saveTime(state.value)
         },
         currentWeekPlus: (state) => {
-            state.value = new Date().valueOf() + 7 * 24 * 60 * 60 * 1000
+            state.value = state.value - 604800000
             saveTime(state.value)
         }
     }

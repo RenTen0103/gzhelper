@@ -11,6 +11,7 @@ import static com.gzhelper.util.HtmlParse.getScoreUrl;
 import static com.gzhelper.util.HtmlParse.getUserName;
 import static com.gzhelper.util.HtmlParse.getViewSate2;
 import static com.gzhelper.util.HtmlParse.getViewState;
+import static com.gzhelper.util.HtmlParse.setUrl;
 
 import android.os.Build;
 import android.os.Environment;
@@ -92,8 +93,9 @@ public class Core extends ReactContextBaseJavaModule {
                                                     COUNTS = 0;
 
                                                     UserInfo.name = getUserName(str);
-                                                    UserInfo.ScorePageUrl = "https://jw.gzu.edu.cn/" + getScoreUrl(str);
-                                                    UserInfo.ScheduleUrl = "https://jw.gzu.edu.cn/" + getScheduleUrl(str);
+/*                                                    UserInfo.ScorePageUrl = "https://jw.gzu.edu.cn/" + getScoreUrl(str);
+                                                    UserInfo.ScheduleUrl = "https://jw.gzu.edu.cn/" + getScheduleUrl(str);*/
+                                                    setUrl(str);
                                                     promise.resolve("LOGIN SUCCESS");
                                                 } else {
                                                     COUNTS++;
@@ -121,8 +123,6 @@ public class Core extends ReactContextBaseJavaModule {
                 } else {
                     promise.resolve("NET ERROR");
                 }
-
-
             }
         });
     }
@@ -134,7 +134,7 @@ public class Core extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getScoreData(Promise promise) throws UnsupportedEncodingException {
+    public void getScoreData(Promise promise) {
         http.getScorePage(new CallBack() {
             @Override
             public void execute(Response response) {

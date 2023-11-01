@@ -1,5 +1,9 @@
 package com.gzhelper.util;
 
+import android.util.Log;
+
+import com.gzhelper.module.UserInfo;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,10 +39,10 @@ public class HtmlParse {
         }
     }
 
-    public static String getScoreUrl(String htmlStr) {
+
+    public static String getExamUrl(String htmlStr) {
         Document document = Jsoup.parse(htmlStr);
         Elements es = document.select("#headDiv > ul > li:nth-child(4) > ul > li:nth-child(4) > a");
-        Elements es1 = document.select("#headDiv > ul > li:nth-child(5) > ul > li:nth-child(4) > a");
         if (es.isEmpty()) {
             es = document.select("#headDiv > ul > li:nth-child(5) > ul > li:nth-child(4) > a");
             if (es.isEmpty()) {
@@ -51,16 +55,63 @@ public class HtmlParse {
         }
     }
 
+    private static int getMessageLocation(String htmlStr) {
+        int l = 0;
+
+        Document document = Jsoup.parse(htmlStr);
+        Elements nav = document.select("#headDiv > ul");
+        if (!nav.isEmpty()) {
+            for (l = 1; l < nav.get(0).children().size() + 1; l++) {
+                Elements es = document.select("#headDiv > ul > li:nth-child(" + l + ") > a > span");
+                if (!es.isEmpty()) {
+                    if (es.get(0).text().contains("信息查询")) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return l;
+    }
+
+
+    public static void setUrl(String htmlStr) {
+        Document document = Jsoup.parse(htmlStr);
+        int msgL = getMessageLocation(htmlStr);
+        Elements msgss = document.select("#headDiv > ul > li:nth-child(" + msgL + ") > ul");
+        if (!msgss.isEmpty()) {
+            Element msgs = msgss.get(0);
+            for (int i = 0; i < msgs.children().size(); i++) {
+                Elements es = document.select("#headDiv > ul > li:nth-child(" + msgL + ") > ul > li:nth-child(" + (i + 1) + ") > a");
+                if (!es.isEmpty()) {
+                    Element e = es.get(0);
+                    if (e.text().contains("学生个人课表")) {
+                        UserInfo.ScheduleUrl = "https://jw.gzu.edu.cn/" + e.attr("href");
+                    } else if (e.text().contains("学生考试查询")) {
+                        UserInfo.ExamUrl = "https://jw.gzu.edu.cn/" + e.attr("href");
+                    } else if (e.text().contains("成绩查询")) {
+                        UserInfo.ScorePageUrl = "https://jw.gzu.edu.cn/" + e.attr("href");
+                    }
+                }
+            }
+        }
+    }
+
+    public static String getScoreUrl(String htmlStr) {
+        Document document = Jsoup.parse(htmlStr);
+        Elements es = document.select("#headDiv > ul > li:nth-child(" + getMessageLocation(htmlStr) + ") > ul > li:nth-child(4) > a");
+        if (es.isEmpty()) {
+            return "";
+        } else {
+            return es.get(0).attr("href");
+        }
+    }
+
     public static String getScheduleUrl(String htmlStr) {
         Document document = Jsoup.parse(htmlStr);
         Elements es = document.select("#headDiv > ul > li:nth-child(4) > ul > li:nth-child(2) > a");
         if (es.isEmpty()) {
-            es = document.select("#headDiv > ul > li:nth-child(5) > ul > li:nth-child(2) > a");
-            if (es.isEmpty()) {
-                return "";
-            } else {
-                return es.get(0).attr("href");
-            }
+            return "";
         } else {
             return es.get(0).attr("href");
         }

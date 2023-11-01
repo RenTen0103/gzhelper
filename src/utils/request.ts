@@ -12,7 +12,7 @@ import {
 } from "../stores/user-store";
 import {ToastAndroid} from "react-native";
 import {praseSchedule, praseScore} from "./dataPrase";
-import {clearAll, setSchedule} from "./localData";
+import {clearAll} from "./localData";
 
 export async function doLogin(userName: string, passwd: string) {
     try {

@@ -5,7 +5,7 @@ import {
     Center,
     Avatar,
     Heading,
-    useColorModeValue, Text, Box
+    useColorModeValue, Text, Box, ScrollView
 } from 'native-base'
 import {DrawerContentComponentProps} from '@react-navigation/drawer'
 import AnimatedColorBox from './animated-color-box'
@@ -16,6 +16,7 @@ import {loginStore} from '../stores/login-store'
 import {configureStore} from "@reduxjs/toolkit";
 import {userStore} from "../stores/user-store";
 import {doLogout} from "../utils/request";
+import {Dimensions} from "react-native";
 
 const Sidebar = (props: DrawerContentComponentProps) => {
 
@@ -84,44 +85,50 @@ const Sidebar = (props: DrawerContentComponentProps) => {
                 <Heading mb={4} size="xl">
                     Have a Nice Day
                 </Heading>
-                {hasLogin ? <VStack space={3}>
-                    <MenuButton
-                        active={currentRoute === 'Main'}
-                        onPress={handlePressMenuMain}
-                        icon="inbox"
-                    >
-                        主页
-                    </MenuButton>
+                {hasLogin ?
+                    <ScrollView>
+                        <VStack space={3}>
+                            <MenuButton
+                                active={currentRoute === 'Main'}
+                                onPress={handlePressMenuMain}
+                                icon="inbox"
+                            >
+                                主页
+                            </MenuButton>
 
-                    <MenuButton
-                        active={currentRoute === 'Score'}
-                        onPress={handlePressMenuScore}
-                        icon="info"
-                    >
-                        分数
-                    </MenuButton>
-                    <MenuButton
-                        active={currentRoute === 'Schedule'}
-                        onPress={handlePressMenuSchedule}
-                        icon="info"
-                    >
-                        课表
-                    </MenuButton>
-                    <MenuButton
-                        active={currentRoute === 'About'}
-                        onPress={handlePressMenuAbout}
-                        icon="info"
-                    >
-                        关于
-                    </MenuButton>
-                    <MenuButton
-                        active={false}
-                        onPress={handlePressBackButton}
-                        icon="info"
-                    >
-                        登出
-                    </MenuButton>
-                </VStack> : <Login/>}
+                            <MenuButton
+                                active={currentRoute === 'Score'}
+                                onPress={handlePressMenuScore}
+                                icon="info"
+                            >
+                                分数
+                            </MenuButton>
+                            <MenuButton
+                                active={currentRoute === 'Schedule'}
+                                onPress={handlePressMenuSchedule}
+                                icon="info"
+                            >
+                                课表
+                            </MenuButton>
+                            <MenuButton
+                                active={currentRoute === 'About'}
+                                onPress={handlePressMenuAbout}
+                                icon="info"
+                            >
+                                关于
+                            </MenuButton>
+                            <MenuButton
+                                active={false}
+                                onPress={handlePressBackButton}
+                                icon="info"
+                            >
+                                登出
+                            </MenuButton>
+                        </VStack>
+                    </ScrollView>
+
+
+                    : <Login/>}
             </VStack>
             <Center>
                 <ThemeToggle/>
